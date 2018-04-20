@@ -32,6 +32,7 @@ public class CommandLineArgument {
             parser.parseArgument(args);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            System.exit(0);
         }
     }
 
