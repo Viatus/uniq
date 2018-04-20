@@ -3,53 +3,37 @@ package uniqText;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class uniqTextTest {
     @Test
-    public void mkUniq() {
+    public void makeUniq() {
         List<String> testLines = new ArrayList<String>();
         testLines.add("Hello");
         testLines.add("world");
         testLines.add("wOrLd");
-        uniqText testSubject = new uniqText(testLines);
-        testSubject.mkUniqText("-i -u");
+        UniqText testSubject = new UniqText(testLines);
+        testSubject.makeTextUniq(true, true, false, 0);
         List<String> resultLines = new ArrayList<String>();
         resultLines.add("Hello");
         assertEquals(testSubject.getArray(), resultLines);
-        try {
-            testSubject.mkUniqText("-g");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка 1 поймана");
-        }
-        try {
-            testSubject.mkUniqText("-i -u -s");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка 2 поймана");
-        }
-        try {
-            testSubject.mkUniqText("-i -u -c 9");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка 3 поймана");
-        }
         testLines.add("WORLD");
-        testSubject = new uniqText(testLines);
-        testSubject.mkUniqText("-i");
-        resultLines.add("WORLD");
+        testSubject = new UniqText(testLines);
+        testSubject.makeTextUniq(true, false, false, 0);
+        resultLines.add("world");
         assertEquals(testSubject.getArray(), resultLines);
         testLines.clear();
         testLines.add("sss");
         testLines.add("sss");
         testLines.add("sss");
         testLines.add("wood");
-        testSubject = new uniqText(testLines);
+        testSubject = new UniqText(testLines);
         resultLines.clear();
         resultLines.add("3sss");
         resultLines.add("wood");
-        testSubject.mkUniqText("-c");
+        testSubject.makeTextUniq(false, false, true, 0);
         assertEquals(testSubject.getArray(), resultLines);
         testLines.clear();
         testLines.add("abbCdnd");
@@ -57,21 +41,21 @@ public class uniqTextTest {
         testLines.add("ssscdnd");
         testLines.add("eeee");
         testLines.add("daacdnd");
-        testSubject = new uniqText(testLines);
+        testSubject = new UniqText(testLines);
         resultLines.clear();
-        resultLines.add("ssscdnd");
+        resultLines.add("abbCdnd");
         resultLines.add("eeee");
         resultLines.add("daacdnd");
-        testSubject.mkUniqText("-i -s 3");
+        testSubject.makeTextUniq(true, false, false, 3);
         assertEquals(testSubject.getArray(), resultLines);
-        testLines.clear();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void makeUniqWithEx() {
+        List<String> testLines = new ArrayList<String>();
         testLines.add("e");
         testLines.add("eeeeee");
-        testSubject = new uniqText(testLines);
-        try {
-            testSubject.mkUniqText("-s 4");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка 4 поймана");
-        }
+        UniqText testSubject = new UniqText(testLines);
+        testSubject.makeTextUniq(false, false, false, 4);
     }
 }

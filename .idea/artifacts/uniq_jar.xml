@@ -1,0 +1,33 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="uniq:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/uniq_jar</output-path>
+    <root id="archive" name="uniq_jar.jar">
+      <element id="archive" name="uniq.jar">
+        <element id="module-output" name="uniq" />
+      </element>
+      <element id="library" level="project" name="Maven: args4j:args4j-tools:all:2.33" />
+      <element id="library" level="project" name="Maven: org.apache.maven:maven-model:2.0.4" />
+      <element id="library" level="project" name="Maven: org.apache.maven:maven-project:2.0.4" />
+      <element id="library" level="project" name="Maven: org.apache.maven:maven-plugin-api:2.0" />
+      <element id="library" level="project" name="Maven: org.apache.maven:maven-artifact:2.0.4" />
+      <element id="library" level="project" name="Maven: classworlds:classworlds:1.1-alpha-2" />
+      <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.1.1" />
+      <element id="library" level="project" name="Maven: org.apache.maven:maven-settings:2.0.4" />
+      <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
+      <element id="library" level="project" name="Maven: org.apache.maven.wagon:wagon-provider-api:1.0-alpha-6" />
+      <element id="library" level="project" name="Maven: org.codehaus.plexus:plexus-utils:1.1" />
+      <element id="library" level="project" name="Maven: org.kohsuke.args4j:args4j-maven-plugin:2.33" />
+      <element id="library" level="project" name="Maven: com.cedarsoftware:json-io:2.4.1" />
+      <element id="library" level="project" name="Maven: org.apache.maven:maven-repository-metadata:2.0.4" />
+      <element id="library" level="project" name="Maven: args4j:args4j:2.33" />
+      <element id="library" level="project" name="Maven: org.apache.maven:maven-artifact-manager:2.0.4" />
+      <element id="library" level="project" name="Maven: org.codehaus.plexus:plexus-container-default:1.0-alpha-9" />
+      <element id="library" level="project" name="Maven: org.apache.maven:maven-profile:2.0.4" />
+      <element id="library" level="project" name="Maven: com.cedarsoftware:java-util:1.8.0" />
+      <element id="library" level="module" name="Maven: jdk:tools:5.0" module-name="uniq" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
