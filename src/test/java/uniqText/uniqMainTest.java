@@ -94,5 +94,6 @@ public class uniqMainTest {
             assertTrue(false);
         }
         testOut.delete();
+        f.delete();
     }
 }
