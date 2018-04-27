@@ -8,17 +8,18 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class uniq {
+public class Uniq {
     public static void main(String[] args) {
         Scanner str = new Scanner(System.in);
-        String inputStr = str.nextLine();
-        CommandLineArgument arguments = new CommandLineArgument(inputStr.split(" "));
-        File input = new File("");
+        String inputStr;
+        CommandLineArgument arguments = new CommandLineArgument(args);
         List<String> lines = new ArrayList<String>();
         if (arguments.file != null) {
             try {
                 lines = Files.readAllLines(Paths.get(arguments.file.getName()), StandardCharsets.UTF_8);
             } catch (Exception e) {
+                System.out.println("Имя входного файла введено некорректно");
+                return;
             }
         } else {
             System.out.println("Вводите текст, для того чтобы прекратить ввод, введите end");
@@ -29,11 +30,11 @@ public class uniq {
             }
         }
         UniqText text = new UniqText(lines);
-        text.makeTextUniq(arguments.isI, arguments.isU, arguments.isC, arguments.N);
+        text.makeTextUniq(arguments);
         if (arguments.oFile != null) {
             try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(arguments.oFile), "utf-8"))) {
-                for (String line : text.getArray()) {
+                for (String line : text.getLines()) {
                     writer.write(line);
                     writer.write("\n");
                 }
@@ -41,7 +42,7 @@ public class uniq {
                 System.out.println("Имя выходного фалйа было задано неверно");
             }
         } else {
-            for (String line : text.getArray()) {
+            for (String line : text.getLines()) {
                 System.out.println(line);
             }
         }

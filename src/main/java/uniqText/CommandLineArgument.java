@@ -14,7 +14,7 @@ public class CommandLineArgument {
     @Option(name = "-u", usage = "Sets U parameter")
     public boolean isU;
 
-    @Option(name = "-c", usage = "Sets C parameter")
+    @Option(name = "-c", usage = "Sets C parameter", forbids={"-u"})
     public boolean isC;
 
     @Option(name = "-s", usage = "Sets S parameter")

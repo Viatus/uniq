@@ -10,18 +10,18 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-public class uniqMainTest {
+public class UniqMainTest {
     @Test
     public void main() {
 
         //Ввод с консоли, вывод на консоль
 
-        System.setIn(new ByteArrayInputStream("-i -c\nAsd\naSd\naSD\nded\nend".getBytes()));
+        System.setIn(new ByteArrayInputStream("Asd\naSd\naSD\nded\nend".getBytes()));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream old = System.out;
         PrintStream ps = new PrintStream(baos);
         System.setOut(ps);
-        uniq.main(new String[]{""});
+        Uniq.main(new String[]{"-i", "-c"});
         System.out.flush();
         System.setOut(old);
         String[] blackResults = baos.toString().split("\n");
@@ -37,12 +37,11 @@ public class uniqMainTest {
             writer.write("wORLD\n111Hello\n222hEllO\n333heLLo\nWorld");
         } catch (IOException e) {
         }
-        System.setIn(new ByteArrayInputStream("-s=3 -i -u f.txt".getBytes()));
         baos = new ByteArrayOutputStream();
         old = System.out;
         ps = new PrintStream(baos);
         System.setOut(ps);
-        uniq.main(new String[]{""});
+        Uniq.main(new String[]{"-s=3", "-i", "-u", "f.txt"});
         System.out.flush();
         System.setOut(old);
         finalResults = baos.toString().split("\n");
@@ -51,14 +50,8 @@ public class uniqMainTest {
 
         //Ввод с консоли, вывод в файл
 
-        System.setIn(new ByteArrayInputStream("-s=2 -o=out.txt -c\n12aabbcc\n23aabbcc\n3aaabbcc\naabbcc\nend".getBytes()));
-        baos = new ByteArrayOutputStream();
-        old = System.out;
-        ps = new PrintStream(baos);
-        System.setOut(ps);
-        uniq.main(new String[]{""});
-        System.out.flush();
-        System.setOut(old);
+        System.setIn(new ByteArrayInputStream("12aabbcc\n23aabbcc\n3aaabbcc\naabbcc\nend".getBytes()));
+        Uniq.main(new String[]{"-s=2", "-o=out.txt", "-c"});
         File testOut = new File("./testOut.txt");
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(testOut), "utf-8"))) {
@@ -80,8 +73,7 @@ public class uniqMainTest {
             writer.write("WoW22\nwOw22\nOwo44\nWoW22\nWow22\nwow22");
         } catch (IOException e) {
         }
-        System.setIn(new ByteArrayInputStream("-c -o=out.txt -i f.txt".getBytes()));
-        uniq.main(new String[]{""});
+        Uniq.main(new String[]{"-c", "-o=out.txt", "-i", "f.txt"});
         testOut = new File("./testOut.txt");
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(testOut), "utf-8"))) {
@@ -95,5 +87,16 @@ public class uniqMainTest {
         }
         testOut.delete();
         f.delete();
+
+        //Неверное имя входного файла
+
+        baos = new ByteArrayOutputStream();
+        old = System.out;
+        ps = new PrintStream(baos);
+        System.setOut(ps);
+        Uniq.main(new String[]{"./ff"});
+        System.out.flush();
+        System.setOut(old);
+        assertTrue(baos.toString().equals("Имя входного файла введено некорректно\r\n"));
     }
 }

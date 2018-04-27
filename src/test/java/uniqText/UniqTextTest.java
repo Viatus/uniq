@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class uniqTextTest {
+public class UniqTextTest {
     @Test
     public void makeUniq() {
         List<String> testLines = new ArrayList<String>();
@@ -15,15 +15,15 @@ public class uniqTextTest {
         testLines.add("world");
         testLines.add("wOrLd");
         UniqText testSubject = new UniqText(testLines);
-        testSubject.makeTextUniq(true, true, false, 0);
+        testSubject.makeTextUniq(new CommandLineArgument(new String[]{"-i", "-u"}));
         List<String> resultLines = new ArrayList<String>();
         resultLines.add("Hello");
-        assertEquals(testSubject.getArray(), resultLines);
+        assertEquals(testSubject.getLines(), resultLines);
         testLines.add("WORLD");
         testSubject = new UniqText(testLines);
-        testSubject.makeTextUniq(true, false, false, 0);
+        testSubject.makeTextUniq(new CommandLineArgument(new String[]{"-i"}));
         resultLines.add("world");
-        assertEquals(testSubject.getArray(), resultLines);
+        assertEquals(testSubject.getLines(), resultLines);
         testLines.clear();
         testLines.add("sss");
         testLines.add("sss");
@@ -33,8 +33,8 @@ public class uniqTextTest {
         resultLines.clear();
         resultLines.add("3sss");
         resultLines.add("wood");
-        testSubject.makeTextUniq(false, false, true, 0);
-        assertEquals(testSubject.getArray(), resultLines);
+        testSubject.makeTextUniq(new CommandLineArgument(new String[]{"-c"}));
+        assertEquals(testSubject.getLines(), resultLines);
         testLines.clear();
         testLines.add("abbCdnd");
         testLines.add("baacDnD");
@@ -46,16 +46,7 @@ public class uniqTextTest {
         resultLines.add("abbCdnd");
         resultLines.add("eeee");
         resultLines.add("daacdnd");
-        testSubject.makeTextUniq(true, false, false, 3);
-        assertEquals(testSubject.getArray(), resultLines);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void makeUniqWithEx() {
-        List<String> testLines = new ArrayList<String>();
-        testLines.add("e");
-        testLines.add("eeeeee");
-        UniqText testSubject = new UniqText(testLines);
-        testSubject.makeTextUniq(false, false, false, 4);
+        testSubject.makeTextUniq(new CommandLineArgument(new String[]{"-i", "-s=3"}));
+        assertEquals(testSubject.getLines(), resultLines);
     }
 }
