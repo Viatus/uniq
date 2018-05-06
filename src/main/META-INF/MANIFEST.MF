@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Class-Path: plexus-utils-1.1.jar wagon-provider-api-1.0-alpha-6.jar ar
+ gs4j-maven-plugin-2.33.jar maven-repository-metadata-2.0.4.jar maven-
+ settings-2.0.4.jar maven-project-2.0.4.jar args4j-2.33.jar args4j-too
+ ls-2.33-all.jar classworlds-1.1-alpha-2.jar commons-logging-1.1.1.jar
+  commons-io-2.4.jar plexus-container-default-1.0-alpha-9.jar guava-r0
+ 5.jar maven-model-2.0.4.jar java-util-1.8.0.jar json-io-2.4.1.jar too
+ ls.jar maven-artifact-manager-2.0.4.jar maven-plugin-api-2.0.jar mave
+ n-artifact-2.0.4.jar maven-profile-2.0.4.jar
+Main-Class: uniqtext.Uniq
+
