@@ -1,4 +1,4 @@
-package uniqText;
+package uniqtext;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -13,10 +13,14 @@ public class Uniq {
         Scanner str = new Scanner(System.in);
         String inputStr;
         CommandLineArgument arguments = new CommandLineArgument(args);
+        if (arguments.getN() < 0) {
+            System.out.println("Аргумент для -s не может быть отрицательным");
+            return;
+        }
         List<String> lines = new ArrayList<String>();
-        if (arguments.file != null) {
+        if (arguments.getFile() != null) {
             try {
-                lines = Files.readAllLines(Paths.get(arguments.file.getName()), StandardCharsets.UTF_8);
+                lines = Files.readAllLines(Paths.get(arguments.getFile().getName()), StandardCharsets.UTF_8);
             } catch (Exception e) {
                 System.out.println("Имя входного файла введено некорректно");
                 return;
@@ -31,9 +35,9 @@ public class Uniq {
         }
         UniqText text = new UniqText(lines);
         text.makeTextUniq(arguments);
-        if (arguments.oFile != null) {
+        if (arguments.getOFile() != null) {
             try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(arguments.oFile), "utf-8"))) {
+                    new FileOutputStream(arguments.getOFile()), "utf-8"))) {
                 for (String line : text.getLines()) {
                     writer.write(line);
                     writer.write("\n");

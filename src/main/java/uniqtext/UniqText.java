@@ -1,4 +1,4 @@
-package uniqText;
+package uniqtext;
 
 
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ public class UniqText {
 
     private void updateNewTex(Integer currentSequenceLength, int firstSequenceIndex, ArrayList<String> newText) {
         if (currentSequenceLength != 1) {
-            if (!arguments.isU) {
-                if (arguments.isC) {
+            if (!arguments.getU()) {
+                if (arguments.getC()) {
                     newText.add(currentSequenceLength.toString() + text.get(firstSequenceIndex));
                 } else {
                     newText.add(text.get(firstSequenceIndex));
@@ -41,8 +41,8 @@ public class UniqText {
             String nextLine = text.get(j + 1);
             String currentLine = text.get(j);
             try {
-                if (nextLine.substring(arguments.N).equals(currentLine.substring(arguments.N))
-                        || (nextLine.substring(arguments.N).equalsIgnoreCase(currentLine.substring(arguments.N)) && arguments.isI)) {
+                if (nextLine.substring(arguments.getN()).equals(currentLine.substring(arguments.getN()))
+                        || (nextLine.substring(arguments.getN()).equalsIgnoreCase(currentLine.substring(arguments.getN())) && arguments.getI())) {
                     currentSequenceLength++;
                 } else {
                     updateNewTex(currentSequenceLength, firstSequenceIndex, newText);
@@ -50,7 +50,7 @@ public class UniqText {
                     firstSequenceIndex = j + 1;
                 }
             } catch (StringIndexOutOfBoundsException e) {
-                if (nextLine.length() < arguments.N && currentLine.length() < arguments.N) {
+                if (nextLine.length() < arguments.getN() && currentLine.length() < arguments.getN()) {
                     currentSequenceLength++;
                 } else {
                     updateNewTex(currentSequenceLength, firstSequenceIndex, newText);

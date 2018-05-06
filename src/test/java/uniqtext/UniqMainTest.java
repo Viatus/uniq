@@ -1,4 +1,4 @@
-package uniqText;
+package uniqtext;
 
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class UniqMainTest {
     @Test
-    public void main() {
+    public void main() throws IOException {
 
         //Ввод с консоли, вывод на консоль
 
@@ -28,6 +28,7 @@ public class UniqMainTest {
         String[] finalResults = new String[blackResults.length - 1];
         System.arraycopy(blackResults, 1, finalResults, 0, blackResults.length - 1);
         assertTrue(Arrays.equals(finalResults, (new String[]{"3Asd\r", "ded\r"})));
+        ps.close();
 
         //Ввод из файла, вывод на консоль
 
@@ -35,7 +36,6 @@ public class UniqMainTest {
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(f), "utf-8"))) {
             writer.write("wORLD\n111Hello\n222hEllO\n333heLLo\nWorld");
-        } catch (IOException e) {
         }
         baos = new ByteArrayOutputStream();
         old = System.out;
@@ -46,6 +46,7 @@ public class UniqMainTest {
         System.setOut(old);
         finalResults = baos.toString().split("\n");
         assertTrue(Arrays.equals(finalResults, new String[]{"wORLD\r", "World\r"}));
+        ps.close();
         f.delete();
 
         //Ввод с консоли, вывод в файл
@@ -56,13 +57,8 @@ public class UniqMainTest {
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(testOut), "utf-8"))) {
             writer.write("312aabbcc\naabbcc\n");
-        } catch (IOException e) {
         }
-        try {
-            assertTrue(Files.equal(testOut, new File("./out.txt")));
-        } catch (Exception e) {
-            assertTrue(false);
-        }
+        assertTrue(Files.equal(testOut, new File("./out.txt")));
         testOut.delete();
 
         //Ввод из файла, вывод в файл
@@ -71,20 +67,14 @@ public class UniqMainTest {
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(f), "utf-8"))) {
             writer.write("WoW22\nwOw22\nOwo44\nWoW22\nWow22\nwow22");
-        } catch (IOException e) {
         }
         Uniq.main(new String[]{"-c", "-o=out.txt", "-i", "f.txt"});
         testOut = new File("./testOut.txt");
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(testOut), "utf-8"))) {
             writer.write("2WoW22\nOwo44\n3WoW22\n");
-        } catch (IOException e) {
         }
-        try {
-            assertTrue(Files.equal(testOut, new File("./out.txt")));
-        } catch (Exception e) {
-            assertTrue(false);
-        }
+        assertTrue(Files.equal(testOut, new File("./out.txt")));
         testOut.delete();
         f.delete();
 
@@ -98,5 +88,18 @@ public class UniqMainTest {
         System.out.flush();
         System.setOut(old);
         assertTrue(baos.toString().equals("Имя входного файла введено некорректно\r\n"));
+        ps.close();
+
+        //Отрицательный аргумент для -s
+
+        baos = new ByteArrayOutputStream();
+        old = System.out;
+        ps = new PrintStream(baos);
+        System.setOut(ps);
+        Uniq.main(new String[]{"-s=-9"});
+        System.out.flush();
+        System.setOut(old);
+        assertTrue(baos.toString().equals("Аргумент для -s не может быть отрицательным\r\n"));
+        ps.close();
     }
 }

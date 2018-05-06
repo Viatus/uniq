@@ -1,4 +1,4 @@
-package uniqText;
+package uniqtext;
 
 import org.junit.Test;
 

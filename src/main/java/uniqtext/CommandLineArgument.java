@@ -1,6 +1,5 @@
-package uniqText;
+package uniqtext;
 
-import com.sun.org.apache.xpath.internal.Arg;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
@@ -9,22 +8,46 @@ import java.io.File;
 
 public class CommandLineArgument {
     @Option(name = "-i", usage = "Sets I parameter")
-    public boolean isI;
+    private boolean isI;
 
     @Option(name = "-u", usage = "Sets U parameter")
-    public boolean isU;
+    private boolean isU;
 
-    @Option(name = "-c", usage = "Sets C parameter", forbids={"-u"})
-    public boolean isC;
+    @Option(name = "-c", usage = "Sets C parameter", forbids = {"-u"})
+    private boolean isC;
 
     @Option(name = "-s", usage = "Sets S parameter")
-    public int N;
+    private int N;
 
     @Option(name = "-o", usage = "Sets file name")
-    public File oFile;
+    private File oFile;
 
     @Argument()
-    public File file;
+    private File file;
+
+    public boolean getU() {
+        return isU;
+    }
+
+    public boolean getC() {
+        return isC;
+    }
+
+    public int getN() {
+        return N;
+    }
+
+    public boolean getI() {
+        return isI;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public File getOFile() {
+        return oFile;
+    }
 
     public CommandLineArgument(String[] args) {
         CmdLineParser parser = new CmdLineParser(this);
@@ -32,7 +55,7 @@ public class CommandLineArgument {
             parser.parseArgument(args);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.exit(0);
+            System.exit(-1);
         }
     }
 
