@@ -12,9 +12,10 @@ public class Uniq {
     public static void main(String[] args) {
         Scanner str = new Scanner(System.in);
         String inputStr;
-        CommandLineArgument arguments = new CommandLineArgument(args);
-        if (arguments.getN() < 0) {
-            System.out.println("Аргумент для -s не может быть отрицательным");
+        CommandLineArgument arguments;
+        try {
+            arguments = new CommandLineArgument(args);
+        } catch (IllegalArgumentException e) {
             return;
         }
         List<String> lines = new ArrayList<String>();
@@ -39,11 +40,10 @@ public class Uniq {
             try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(arguments.getOFile()), "utf-8"))) {
                 for (String line : text.getLines()) {
-                    writer.write(line);
-                    writer.write("\n");
+                    writer.write(line+"\n");
                 }
             } catch (IOException e) {
-                System.out.println("Имя выходного фалйа было задано неверно");
+                System.out.println("Имя выходного фалйа было введено некорректно");
             }
         } else {
             for (String line : text.getLines()) {

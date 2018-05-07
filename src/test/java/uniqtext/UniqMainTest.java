@@ -101,5 +101,17 @@ public class UniqMainTest {
         System.setOut(old);
         assertTrue(baos.toString().equals("Аргумент для -s не может быть отрицательным\r\n"));
         ps.close();
+
+        //Одновременно -u  -c
+
+        baos = new ByteArrayOutputStream();
+        old = System.out;
+        ps = new PrintStream(baos);
+        System.setOut(ps);
+        Uniq.main(new String[]{"-u", "-c"});
+        System.out.flush();
+        System.setOut(old);
+        assertTrue(baos.toString().equals("option \"-c\" cannot be used with the option(s) [-u]\r\n"));
+        ps.close();
     }
 }
